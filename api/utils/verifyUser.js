@@ -1,15 +1,15 @@
-import React from 'react'
 import jwt from "jsonwebtoken";
-import {errorHandler} from "./error.js";
+// import {errorHandler} from "./error.js";
 
 const verifyUser = (req,res,next) => {
-    const token = req.cookies.access_token;
+    const token = req.body.token 
+    console.log(token);
     if (!token) {
-        return next(errorHandler);
+        return next('Unauthorized');
     }
     jwt.verify(token,process.env.JWT_SECRET,(err,user)=>{
         if(err) {
-            return next(errorHandler(401,'Unauthorized'));
+            return next('Unauthorized');
         }
         req.user =user;
         next();
@@ -17,4 +17,4 @@ const verifyUser = (req,res,next) => {
   
 };
 
-export default verifyUser
+export  {verifyUser};

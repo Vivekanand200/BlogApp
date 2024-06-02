@@ -6,6 +6,7 @@ import {signInStart,  signInSuccess,signInFailure  } from '../redux/user/userSli
 import { useDispatch, useSelector } from 'react-redux';
 import Oauth from '../components/Oauth';
 
+
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -34,14 +35,14 @@ const SignIn = () => {
       // setErrorMessage(null);
       dispatch(signInStart());
       const res = await axios.post('http://localhost:3000/api/auth/signIn', formData);
-      console.log(res.data);
-
+      document.cookie = `access_token=${res.data.token};path=/`;
       setFormData({
         email: '',
         password: ''
       });
+      console.log(res,"response");
       if (res.status === 200) {
-        dispatch(signInSuccess(res.data));
+        dispatch(signInSuccess(res.data.data));
         navigate('/');
       }
       else {
@@ -96,7 +97,7 @@ const SignIn = () => {
               {
                 loading ? (<>
                   <Spinner size='sm' />
-                  <span className='pl-3'>Loding...</span>
+                  <span className='pl-3'>Loading...</span>
                 </>
                 ) : 'sign In'
               }

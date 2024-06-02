@@ -8,15 +8,9 @@ import { toggleTheme } from '../redux/theme/themeSlice';
 const Header = () => {
 
     const path = useLocation().pathname;
-    console.log("first")
     const dispatch = useDispatch();
     const { theme } = useSelector(state => state.theme)
     const { currentUser } = useSelector((state) => state.user);
-    //const {username,profilePicture} = currentUser;
-    console.log("header", currentUser);
-     //console.log("headerUsername", username);
-    //console.log("headerProfile", profilePicture);
-    //let currentUser = true;
     return (
         <Navbar className='border-b-2'>
             <Link to="/" className='self-centre whitespace-nowrap text-sm  sm:text-xl font-semibold dark:text-white'>
@@ -86,7 +80,6 @@ const Header = () => {
                     <Link to='/projects'>Projects</Link>
                 </Navbar.Link>
             </Navbar.Collapse>
-
         </Navbar>
     )
 }
